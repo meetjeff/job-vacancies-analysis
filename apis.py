@@ -1,15 +1,18 @@
 from flask_apispec import doc, MethodResource
 import requests
 import json
-
 import pymysql
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def db_init():
     db = pymysql.connect(
-        host='azsqltop.mysql.database.azure.com',
-        user='jeff',
-        password='@a0987399832',
-        port=3306,
+        host = os.getenv("dbip"),
+        user = os.getenv("dbuser"),
+        password = os.getenv("dbpassword"),
+        port = int(os.getenv("dbport")),
         database='career'
     )
     cursor = db.cursor(pymysql.cursors.DictCursor)
